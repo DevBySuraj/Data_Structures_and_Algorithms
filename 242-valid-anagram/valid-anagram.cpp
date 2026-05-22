@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        vector<int> output_s(256,0);
+        vector<int> output_t(256,0);
+
+        for(int i =0; i<s.length(); i++){
+            output_s[s[i]]++;
+        }
+        for(int i =0; i<t.length(); i++){
+            output_t[t[i]]++;
+        }
+
+        for(int i =0; i<256; i++){
+            if(output_s[i] != output_t[i]){
+                return false;
+            }
+        }
+        return true;
+
+    }
+};
