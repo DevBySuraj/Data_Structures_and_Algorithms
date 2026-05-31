@@ -17,7 +17,7 @@ public:
 
             min_end = min(min_end + nums[i], nums[i]);
             min_res = min(min_res, min_end);
-            cout<<max_res<<endl;
+            // cout<<max_res<<endl;
         }
         int v1 = sum - min_res;
         res = max(max_res, v1);
