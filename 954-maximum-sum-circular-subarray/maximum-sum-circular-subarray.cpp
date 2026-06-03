@@ -1,28 +1,27 @@
 class Solution {
 public:
     int maxSubarraySumCircular(vector<int>& nums) {
+        int min_end = nums[0];
+        int min_res = nums[0];
+        int total_sum = nums[0];
+
         int max_end = nums[0];
         int max_res = nums[0];
-        int min_res = nums[0];
-        int n = nums.size();
-        int min_end = nums[0];
-        int sum = nums[0];
 
-        int res = nums[0];
+        int ans = INT_MIN;
 
-        for(int i = 1; i<n; i++){
-            sum += nums[i]; 
+
+        for(int i = 1; i<nums.size(); i++){
+            total_sum += nums[i];
+
             max_end = max(max_end + nums[i], nums[i]);
             max_res = max(max_res, max_end);
 
             min_end = min(min_end + nums[i], nums[i]);
             min_res = min(min_res, min_end);
-            // cout<<max_res<<endl;
         }
-        int v1 = sum - min_res;
-        res = max(max_res, v1);
+        if(min_res == total_sum) return max_res;
+        return max(max_res, total_sum - min_res);
 
-        if(v1 == 0 ) return max_res;
-        return res;
     }
 };
