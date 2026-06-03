@@ -3,10 +3,7 @@ class Solution {
 public:
     int calPoints(vector<string>& operations) {
         stack<int> st;
-        int record = 0;
-        vector<int> records;
         int sum = 0;
-
         for(int i = 0; i<operations.size(); i++){
             if(operations[i] == "+")
             {
