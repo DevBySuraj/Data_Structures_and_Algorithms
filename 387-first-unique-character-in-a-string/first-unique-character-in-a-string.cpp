@@ -2,15 +2,14 @@ class Solution {
 public:
     int firstUniqChar(string s) {
         int size = s.length();
+        vector<int> freq(256,0);
 
-        map<char, int> mp;
-        char character;
         for(auto x : s){
-            mp[x]++;
+            freq[x]++;
         }
 
         for(int i =0; i<size; i++){
-            if(mp[s[i]] == 1) return i;
+            if(freq[s[i]] == 1) return i;
         }
         return -1;
     }
