@@ -7,9 +7,13 @@ public:
             sum+= x;
         }
         int prefix = 0;
-        int suffix = sum - prefix - nums[0];
-        if(suffix == prefix) return 0;
-        
+        int suffix = 0;
+        if(sum - nums[0] == 0) return 0;
+
+        // int suffix = sum - prefix - nums[0];
+        // if(suffix == prefix) return 0;
+
+
         for(int i = 1; i<n; i++){
             prefix = prefix + nums[i-1];
             suffix = sum - prefix - nums[i];
