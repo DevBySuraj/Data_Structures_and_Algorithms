@@ -1,22 +1,20 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        vector<int> output_s(256,0);
-        vector<int> output_t(256,0);
+        if (s.length() != t.length()) return false;
+        unordered_map<int,int>mp;
+        unordered_map<int,int>mp_ans;
+        for(char x : s){
+            mp[x]++;
+        }
+        for(char x : t){
+            mp_ans[x]++;
+        }
 
-        for(int i =0; i<s.length(); i++){
-            output_s[s[i]]++;
-        }
-        for(int i =0; i<t.length(); i++){
-            output_t[t[i]]++;
+        for(int i = 0; i<t.length(); i++){
+            if(mp[t[i]] != mp_ans[t[i]]) return false;
         }
 
-        for(int i =0; i<256; i++){
-            if(output_s[i] != output_t[i]){
-                return false;
-            }
-        }
         return true;
-
     }
 };
