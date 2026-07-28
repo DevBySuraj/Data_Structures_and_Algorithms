@@ -2,6 +2,7 @@ class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
         sort(intervals.begin(), intervals.end());
+
         int size = intervals.size();
         int current_start = intervals[0][0];
         int current_end = intervals[0][1];
@@ -17,24 +18,17 @@ public:
             next_start = intervals[i][0];
             next_end = intervals[i][1];
             if(current_end >= next_start){ //overlaps here condition
+                current_start = current_start;
                 current_end = max(current_end, next_end);
-                // if the whole array overlaps we will end here
-                if(i == size - 1){
-                    output.push_back({current_start, current_end});
-                }
+                continue;
             }
 
-            else{ // if the current intervals breaks we will push current merged intervals 
-            //and move to next intervals 
                 output.push_back({current_start, current_end});
 
-                current_start = intervals[i][0];
-                current_end = intervals[i][1];
-
-                if(i == size - 1)
-                output.push_back({current_start, current_end});
+                current_start  = next_start;
+                current_end = next_end;
             }
-            }
+            output.push_back({current_start, current_end});
         return output;
     }
 };
