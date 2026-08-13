@@ -1,39 +1,48 @@
 class Solution {
 public:
     vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        int size = intervals.size();
+        if(size == 0){
+            intervals.push_back(newInterval);
+            return intervals;
+        }
         vector<vector<int>> output;
-
-        intervals.push_back(newInterval);
-        sort(intervals.begin(), intervals.end());
-
-        int current_start = intervals[0][0];
-        int current_end = intervals[0][1];
-
-        int next_start = 0;
-        int next_end = 0;
-        
-        for(int i =1; i<intervals.size(); i++){
-            next_start = intervals[i][0];
-            next_end  = intervals[i][1];
-
-            if(current_end >= next_start){ //overlapping
-                current_start = current_start;
-                current_end = max(current_end, next_end);
-                continue;
+        vector<vector<int>> ans;
+        int current_start;
+        int current_end;
+        bool insert = false;
+        for(int i = 0; i<size; i++){
+            current_start = intervals[i][0];
+            if(insert == false && current_start >= newInterval[0]){
+                insert = true;
+                output.push_back(newInterval);
             }
-
-            output.push_back({current_start, current_end}); // here breaks to so push intervals merged till now
-
-            // start a new intervals here
-            current_start = next_start;
-            current_end = next_end;
-
+            output.push_back(intervals[i]);
         }
 
-        // if all are merged so push the last answer here
-        //if all merged and last remaind unmerged push here
-        output.push_back({current_start, current_end});
+        //if the interval is at the end
+        if(insert == false) output.push_back(newInterval);
 
-        return output;
+
+        current_start = output[0][0];
+        current_end =   output[0][1];
+
+        for(int j = 1; j<size + 1; j++){
+            int next_start = output[j][0];
+            int next_end = output[j][1];
+
+            if(current_end >= next_start){
+                current_end = max(current_end, next_end);
+            }
+            else{
+                ans.push_back({current_start, current_end});
+                current_start = output[j][0];
+                current_end = output[j][1];
+            }
+        }
+        ans.push_back({current_start,current_end});
+
+    return ans;
     }
+
 };
