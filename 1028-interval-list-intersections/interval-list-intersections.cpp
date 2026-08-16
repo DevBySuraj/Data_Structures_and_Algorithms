@@ -1,18 +1,11 @@
 class Solution {
 public:
     vector<vector<int>> intervalIntersection(vector<vector<int>>& firstList, vector<vector<int>>& secondList) {
-        if(secondList.size() ==0 ){
-            return {};
-        }
+        int start1,start2,end1,end2;
         vector<vector<int>> output;
 
-        int start1;
-        int end1;
-        int start2;
-        int end2;
         for(int i =0; i<firstList.size(); i++){
             for(int j = 0; j<secondList.size(); j++){
-
                 if(firstList[i][0] < secondList[j][0]){
                     start1 = firstList[i][0];
                     end1 = firstList[i][1];
@@ -27,14 +20,10 @@ public:
 
                 }
 
-
                 if(end1 >= start2){
                     int start = max(start1, start2);
                     int end = min(end1, end2);
-
-                    output.push_back({start, end});
-
-                
+                    output.push_back({start,end});
                 }
             }
         }
