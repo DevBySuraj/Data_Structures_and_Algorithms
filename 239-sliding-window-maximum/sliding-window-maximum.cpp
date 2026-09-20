@@ -6,21 +6,17 @@ public:
         vector<int> ans;
 
         for(int i = 0; i < nums.size(); i++) {
-
-            // 1. Remove elements outside the window
+            while(!dq.empty() && nums[dq.back()] < nums[i]) {
+                dq.pop_back();
+            }
             while(!dq.empty() && dq.front() <= i - k) {
                 dq.pop_front();
             }
 
-            // 2. Remove smaller elements
-            while(!dq.empty() && nums[dq.back()] < nums[i]) {
-                dq.pop_back();
-            }
-
-            // 3. Add current index
             dq.push_back(i);
 
-            // 4. Window is ready
+            //work for first window 
+            //then calculate maximum at each i movement
             if(i >= k - 1) {
                 ans.push_back(nums[dq.front()]);
             }
