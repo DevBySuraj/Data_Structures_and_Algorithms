@@ -1,1 +1,1 @@
-<h2>longest-substring-with-at-least-k-repeating-characters Notes</h2><hr>[ Time taken: 40m 23s ]
+<h2>longest-substring-with-at-least-k-repeating-characters Notes</h2><hr>[ Time taken: 1hr 52m 38s ]
