@@ -1,41 +1,50 @@
 class Solution {
 public:
     int longestSubstring(string s, int k) {
+        int size = s.length();
+        int ans = 0;
 
-        if(s.length() < k)
-            return 0;
+        for(int uniqueChar = 1; uniqueChar <= 26; uniqueChar++){
+            
+            int low = 0;
+            int high = 0;
+            int actUniqueChar = 0;
+            int charAtLeastK = 0;
+            int freq[26] = {0};
 
-        unordered_map<char,int> freq;
+            while(high < size){
+                int idx = s[high] - 'a';
 
-        for(char c : s)
-            freq[c]++;
+                if(freq[idx] == 0) // first occurence
+                actUniqueChar++;
 
-        for(auto [ch, count] : freq) {
+                freq[idx]++;
 
-            if(count < k) {
+                if(freq[idx]== k)
+                charAtLeastK++;
 
-                int ans = 0;
-                string left = "";
-                string right = "";
 
-                // split around invalid character
-                for(char c : s) {
+                while(actUniqueChar > uniqueChar){
+                    int id = s[low] - 'a';
 
-                    if(c == ch) {
-                        ans = max(ans, longestSubstring(left, k));
-                        left = "";
-                    }
-                    else {
-                        left += c;
-                    }
+                    if(freq[id] == k)
+                    charAtLeastK--;
+
+                    freq[id]--;   //ORDER MATTERS CHECK FIRST THEN REDUCE FREQ
+
+                    if(freq[id] == 0)
+                    actUniqueChar--;
+
+                    low++;
                 }
 
-                ans = max(ans, longestSubstring(left, k));
-
-                return ans;
+                if(actUniqueChar == charAtLeastK){
+                    ans = max(ans, high - low + 1);
+                }
+                high++;
             }
         }
 
-        return s.length();
+        return ans;
     }
 };
