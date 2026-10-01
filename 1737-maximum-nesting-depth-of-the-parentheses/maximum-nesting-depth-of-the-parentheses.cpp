@@ -10,17 +10,12 @@ public:
                 st.push(s[i]);
                 count++;
             }
-
-
-
             if(s[i] == ')' && st.top() == '(' ){
                 st.pop();
                 count--;
             }
             ans = max(ans, count);
-            cout<<i<<" "<<count<<" "<<ans<<endl;
-
-
+            // cout<<i<<" "<<count<<" "<<ans<<endl;
         }
         return ans;
         
