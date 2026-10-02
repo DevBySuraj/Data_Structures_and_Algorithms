@@ -2,14 +2,17 @@ class Solution {
 public:
     vector<int> findDisappearedNumbers(vector<int>& nums) {
         int n = nums.size();
-        vector<int> duplicate(n,0);
         vector<int>ans;
         for(int i = 0; i<n; i++){
-            duplicate[nums[i] - 1]++;
+            int idx = abs(nums[i]) - 1;
+            //index for each value, where should it go
+
+            if(nums[idx] > 0)// if the value on the other index is +ve then only negative it, if not then it already negated, it will double negate and make it positive
+                nums[idx] *= -1 ;
         }
 
         for(int i =0; i<n; i++){
-            if(duplicate[i] == 0){
+            if(nums[i] > 0){
                 ans.push_back(i+1);
             }
         }
