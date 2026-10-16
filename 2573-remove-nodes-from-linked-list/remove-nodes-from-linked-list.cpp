@@ -26,37 +26,33 @@ public:
 }
 
     ListNode* removeNodes(ListNode* head) {
-        stack <ListNode*> st;
+        stack<ListNode*> st;
+
         head = reverseInPlace(head);
+        ListNode* temp = head;
 
-        ListNode*current = head;
-        while(current != nullptr){
-            if(st.empty()){//node survived so push it in stack
-                st.push(current);
-                current = current->next;
-            }      
-
-            while(!st.empty() && st.top()->val <= current->val){//not next greater then pop
-            // chotta hai ya equal toh kaam ka nhi hai pop 
-                st.pop(); //can't be previous greater so remove it from stack
+        while(temp != NULL){
+            // if(st.empty()){
+            //     st.push(temp);
+            //     temp = temp->next;
+            //     // continue;
+            // }
+            while(!st.empty() && st.top()->val <= temp->val){
+                st.pop();
             }
-            //previous greater found or stack empty
-
 
             if(st.empty()){
-                st.push(current);
-                current = current->next;
+                st.push(temp);
+                temp = temp->next;
             }
-
-            else{ // not empty greater element exits so delte current
-                 ListNode* topNode = st.top();
-                 topNode->next = current->next;
-                 current = current->next;
+            else{
+                ListNode* shift = st.top();
+                shift->next = temp->next;
+                temp = temp->next;
             }
 
         }
 
         return reverseInPlace(head);
-
     }
 };
